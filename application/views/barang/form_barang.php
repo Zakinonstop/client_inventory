@@ -4,7 +4,7 @@
             <div class="card-body">
                 <h4>Isikan data dengan lengkap</h4>
 
-                <form class="form-horizontal form-material" id="formBarang">
+                <form class="form-horizontal form-material" id="formBarang" method="POST" action="">
 
                     <div class="form-group">
                         <label class="col-md-12">Nama Barang</label>
@@ -22,14 +22,114 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-12">
-                            <input class="form-user-input" type="hidden" name="id_barang" id="id_barang" value="">
-                            <input class="form-user-input" type="hidden" name="stok" id="stok" value="0">
-                            <button class="btn btn-success" type="submit">Simpan Data Barang</button>
+                        <label class="col-md-12">tanggal_masuk</label>
+                        <div class="col-md-7">
+                            <input type="date" class="form-control
+                                        form-control form-user-input" name="tanggal_masuk" id="tanggal_masuk">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-md-12">harga_barang</label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control
+                                        form-control form-user-input" name="harga_barang" id="harga_barang">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-12">nama_admin</label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control
+                                        form-control form-user-input" name="nama_admin" id="nama_admin">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input class="form-user-input" type="hidden" name="id_barang" id="id_barang" value="">
+                            <input class="form-user-input" type="hidden" name="stok" id="stok" value="12">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success" type="submit">Simpan Data Barang</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#formBarang').on('submit', function(e) {
+        e.preventDefault();
+        sendDataPost();
+    });
+
+    function sendDataPost() {
+
+        var link = 'http://localhost:8080/backend_inventory/barang/create_action/';
+
+
+        // <?php
+            // if ($title = 'Form Edit Data Barang') {
+            //     echo "var link = 'http://localhost:8080/backend_inventory/barang/update_action/';";
+            // } else {
+            //     echo "var link = 'http://localhost:8080/backend_inventory/barang/create_action/';";
+            // }
+            // 
+            ?>
+
+
+        var dataForm = {};
+        var allInput = $('.form-user-input');
+
+        $.each(allInput, function(i, val) {
+            dataForm[val['name']] = val['value'];
+        });
+
+        $.ajax(link, {
+            type: 'POST',
+            data: dataForm,
+            success: function(data, status, xhr) {
+                var data_str = JSON.parse(data);
+                alert(data_str['pesan']);
+                loadMenu('<?= base_url('barang') ?>')
+            },
+            error: function(jqXHR, textStatus, errorMsg) {
+                alert('error :' + errorMsg);
+            }
+        });
+    }
+
+    //ajax untuk mengambil detail barang dari backend
+
+    // function getDetail($id_barang) {
+    //     var link = 'http://localhost:8080/backend_inventory/barang/detail?id_barang=' + id_barang;
+
+    //     $.ajax(link, {
+    //         type: 'GET',
+    //         success: function(data, status, xhr) {
+    //             var data_obj = JSON.parse(data);
+
+    //             if (data_obj['sukses'] == 'ya') {
+    //                 var detail = data_obj['detail'];
+    //                 $('#nama_barang').val(detail['nama_barang']);
+    //                 $('#id_barang').val(detail['deskripsi']);
+    //                 $('#stok').val(detail['stok']);
+    //             } else {
+    //                 alert('Data Tidak Ditemukan');
+    //             }
+    //         },
+    //         error: function(jqHXR, textStatus, errorMsg) {
+    //             alert('Error :' + errorMsg);
+    //         }
+    //     });
+    // }
+
+    // <?php
+        // if ($title == 'Form Data Barang') {
+        //     echo 'getDetail(' . $id_barang . ');';
+        // }
+        // 
+        ?>
+</script>

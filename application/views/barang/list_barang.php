@@ -23,6 +23,8 @@
                 var objData = JSON.parse(data);
 
                 $('#tabel_barang').html(objData.konten);
+
+                reloadEvent();
             },
             error: function(jqXHR, textStatus, errorMsg) {
                 alert('Error : ' + errorMsg);
@@ -30,10 +32,12 @@
         })
     }
 
-    // $(document).ready(
-    // function() {
-
     loadKonten('http://localhost:8080/backend_inventory/barang/list_barang');
 
-    // });
+    function reloadEvent() {
+        $('.linkEditBarang').on('click', function() {
+            var hashClean = this.hash.replace('#', '');
+            loadMenu('<?= base_url('barang/form_edit/') ?>' + hashClean);
+        });
+    }
 </script>
