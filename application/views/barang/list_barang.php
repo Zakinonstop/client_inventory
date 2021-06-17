@@ -39,5 +39,27 @@
             var hashClean = this.hash.replace('#', '');
             loadMenu('<?= base_url('barang/form_edit/') ?>' + hashClean);
         });
+
+        $('.linkHapusBarang').on('click', function() {
+            var hashClean = this.hash.replace('#', '');
+            hapusData(hashClean);
+        });
+    }
+
+    function hapusData(id_barang) {
+        // var url = 'http://localhost:8080/backend_inventory/barang/delete_data?id_barang=' + id_barang;
+        var url = 'http://localhost:8080/backend_inventory/barang/soft_delete_data?id_barang=' + id_barang;
+
+        $.ajax(url, {
+            type: 'GET',
+            success: function(data, status, xhr) {
+                var data_obj = JSON.parse(data);
+                alert(data_obj['pesan']);
+                loadKonten('http://localhost:8080/backend_inventory/barang/list_barang');
+            },
+            error: function(jqHXR, textStatus, errorMsg) {
+                alert('Error :' + errorMsg);
+            }
+        });
     }
 </script>

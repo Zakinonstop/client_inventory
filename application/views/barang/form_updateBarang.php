@@ -10,8 +10,8 @@
                         <label class="col-md-12">Nama Barang</label>
                         <div class="col-md-12">
                             <input type="text" placeholder="Inputkan nama barang" class="form-control
-                                                form-control-line form-user-input" name="nama_barang" id="nama_barang" value="<?
-                                                ?>">
+                                                form-control-line form-user-input" name="nama_barang" id="nama_barang" value="
+                                                ">
                         </div>
                     </div>
 

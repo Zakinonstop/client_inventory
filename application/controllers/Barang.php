@@ -31,13 +31,15 @@ class Barang extends CI_Controller
 
 	public function form_edit($id_barang)
 	{
-		$konten = $this->load->view('barang/form_updateBarang', null, true);
+		$data_view = array('title' => 'Form Edit Data Barang', 'id_barang' => $id_barang);
 
-		$data_json = [
+		$konten = $this->load->view('barang/form_updateBarang', $data_view, true);
+
+		$data_json = array(
 			'konten' => $konten,
 			'title' => 'Form Edit Data Barang',
 			'id_barang' => $id_barang
-		];
+		);
 
 		echo json_encode($data_json);
 	}
